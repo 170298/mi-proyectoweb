@@ -1,20 +1,26 @@
+require('dotenv').config();
 const express = require('express');
-const app = express();
-const authRoutes = require('./routes/auth');
+const pool = require('./db');
 const cors = require('cors');
-
+const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Ruta principal (para probar el despliegue)
-app.get('/', (req, res) => {
-  res.send('🚀 Servidor funcionando correctamente en Render');
+// routes
+const authRoutes = require('./routes/roater/auth');
+app.use('/auth', authroutes);
+
+app.get('/', (req, res) => res.send('Proyecto integrado - servidor funcionando'));
+
+app.get('/users', async (req, res) => {
+  try {
+    const [rows] = await pool.query('SELECT id, username, email FROM users');
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'db error' });
+  }
 });
 
-// Rutas de autenticación
-app.use('/auth', authRoutes);
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en el puerto ${PORT}`);
-});
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log('Server listening on', port));
