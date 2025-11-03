@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carpintería Los Robles - Iniciar Sesión</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* --- Estilo clásico del login --- */
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4 url('img/fondo-madera.jpg') center/cover no-repeat;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .login-container {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      width: 320px;
+      text-align: center;
+    }
+
+    .login-container h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #795548;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #5d4037;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login-container">
+    <h2>Iniciar Sesión</h2>
+
+    <form id="loginForm">
+      <input type="text" id="usuario" placeholder="Usuario" required />
+      <input type="password" id="contrasena" placeholder="Contraseña" required />
+      <button type="submit">Entrar</button>
+    </form>
+  </div>
+
+  <!-- Vincular al archivo index.js -->
+  <script src="index.js"></script>
+</body>
+</html>
