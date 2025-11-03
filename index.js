@@ -7,7 +7,7 @@ app.use(cors());
 app.use(express.json());
 
 // routes
-const authRoutes = require('./routes/auth');
+const authRoutes = require('./routes/router/auth');
 app.use('/auth', authRoutes);
 
 app.get('/', (req, res) => res.send('Proyecto integrado - servidor funcionando'));
