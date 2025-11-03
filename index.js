@@ -7,20 +7,18 @@ app.use(cors());
 app.use(express.json());
 
 // routes
-const authRoutes = require('./routes/router/auth');
-app.use('/auth', authRoutes);
+const express = require('express');
+const app = express();
 
-app.get('/', (req, res) => res.send('Proyecto integrado - servidor funcionando'));
+app.use(express.json());
 
-app.get('/users', async (req, res) => {
-  try {
-    const [rows] = await pool.query('SELECT id, username, email FROM users');
-    res.json(rows);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'db error' });
-  }
+// Importación corregida: usa router_auth en vez de auth
+const authRouter = require('./routes/router_auth');
+app.use('/auth', authRouter);
+
+// ...otras rutas y lógica (agrega aquí tu código)
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Servidor escuchando en el puerto ${PORT}`);
 });
-
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log('Server listening on', port));
