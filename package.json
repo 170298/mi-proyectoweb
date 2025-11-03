@@ -1,8 +1,9 @@
 {
   "name": "proyecto-integrado",
   "version": "1.0.0",
-  "description": "Proyecto integrado con MySQL - generado automáticamente",
+  "description": "Proyecto integrado con MySQL - despliegue en Render",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
@@ -14,7 +15,8 @@
     "dotenv": "^16.0.3",
     "cors": "^2.8.5",
     "bcrypt": "^5.1.0",
-    "jsonwebtoken": "^9.0.0"
+    "jsonwebtoken": "^9.0.0",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
