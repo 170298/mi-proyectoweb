@@ -1,0 +1,1257 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carpintería Los Roble - Gestión de Producción</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        /* Login Section */
+        .login-section {
+            display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background: url('https://www.transparenttextures.com/patterns/dark-wood.png'),
+                    linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5));
+        background-size: cover;
+        background-blend-mode: overlay;
+        filter: blur(0px);
+        }
+
+        .login-form {
+            position: relative;
+        background: linear-gradient(145deg, #2c3e50, #1a252f);
+        padding: 40px 35px;
+        border-radius: 20px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        width: 100%;
+        max-width: 400px;
+        backdrop-filter: blur(8px);
+        color: #ecf0f1;
+        animation: fadeIn 0.8s ease;
+        }
+
+        @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+        }
+
+        .login-logo {
+        display: block;
+        margin: 0 auto 15px;
+        width: 90px;
+        height: auto;
+        }
+
+        .login-form h2 {
+            text-align: center;
+        margin-bottom: 25px;
+        color: #ecf0f1;
+        letter-spacing: 1px;
+        }
+
+        .input-group {
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    .input-group input {
+        width: 100%;
+        padding: 12px 40px 12px 40px;
+        border: 1px solid #444;
+        border-radius: 10px;
+        font-size: 16px;
+        background-color: #2c3e50;
+        color: white;
+        outline: none;
+        transition: all 0.3s;
+    }
+
+    .input-group input:focus {
+        border-color: #2ecc71;
+        box-shadow: 0 0 8px #2ecc71;
+    }
+
+    .input-group i {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #aaa;
+        font-size: 18px;
+    }
+
+    .toggle-password {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #aaa;
+    }
+
+    .btn-login {
+        background: linear-gradient(45deg, #27ae60, #2ecc71);
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 12px;
+        font-size: 16px;
+        width: 100%;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn-login:hover {
+        box-shadow: 0 0 15px rgba(46, 204, 113, 0.8);
+        transform: scale(1.02);
+    }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+        }
+
+        /* Main App */
+        .app-container {
+            display: none;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: #2c3e50;
+            padding: 15px 0;
+            margin-bottom: 30px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover, nav a.active {
+            background-color: #34495e;
+        }
+
+        /* Content Sections */
+        .content-section {
+            display: none;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .section-title {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+
+        /* Forms */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            align-items: end;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        /* Buttons in tables */
+        .table-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .table-btn.delete {
+            background-color: #e74c3c;
+        }
+
+        /* Reports Cards */
+        .reports-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .report-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .report-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        /* Backup Section */
+        .backup-section {
+            text-align: center;
+        }
+
+        .backup-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        /* Notifications */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 5px;
+            color: white;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.3s ease;
+        }
+
+        .notification.success {
+            background-color: #27ae60;
+        }
+
+        .notification.error {
+            background-color: #e74c3c;
+        }
+
+        .notification.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+     <!-- ==== LOGIN SECTION ==== -->
+    <div class="login-section" id="loginSection">
+     <div class="login-form">
+        <img src="./logo/logo.png" alt="Logo Carpintería Los Roble" class="login-logo">
+        <h2>Iniciar Sesión</h2>
+
+        <div class="input-group">
+            <i>👤</i>
+            <input type="text" id="username" placeholder="Usuario">
+        </div>
+
+        <div class="input-group">
+            <i>🔒</i>
+            <input type="password" id="password" placeholder="Contraseña">
+            <span class="toggle-password" onclick="togglePassword()">👁️</span>
+        </div>
+
+        <button class="btn-login" onclick="login()">Acceder</button>
+     </div>
+    </div>
+
+    <!-- Main Application -->
+    <div class="app-container" id="appContainer">
+        <header>
+            <h1>Carpintería Los Roble - Gestión de Producción</h1>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#" class="active" data-section="dashboard">Dashboard</a></li>
+                <li><a href="#" data-section="orders">Pedidos</a></li>
+                <li><a href="#" data-section="clients">Clientes</a></li>
+                <li><a href="#" data-section="materials">Materiales</a></li>
+                <li><a href="#" data-section="employees">Empleados</a></li>
+                <li><a href="#" data-section="deliveries">Entregas</a></li>
+                <li><a href="#" data-section="reports">Reportes</a></li>
+                <li><a href="#" data-section="backup">Backup/Restore</a></li>
+            </ul>
+        </nav>
+
+        <div class="container">
+            <!-- Dashboard Section -->
+            <div class="content-section active" id="dashboard">
+                <h2 class="section-title">Panel de Control</h2>
+                <div class="reports-grid">
+                    <div class="report-card">
+                        <h3>Pedidos Pendientes</h3>
+                        <p>Total: <span id="pendingOrders">0</span></p>
+                    </div>
+                    <div class="report-card">
+                        <h3>Clientes Registrados</h3>
+                        <p>Total: <span id="totalClients">0</span></p>
+                    </div>
+                    <div class="report-card">
+                        <h3>Materiales en Stock</h3>
+                        <p>Total: <span id="stockMaterials">0</span></p>
+                    </div>
+                    <div class="report-card">
+                        <h3>Empleados Activos</h3>
+                        <p>Total: <span id="activeEmployees">0</span></p>
+                    </div>
+                    <div class="report-card">
+                        <h3>Entregas Programadas</h3>
+                        <p>Total: <span id="scheduledDeliveries">0</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orders Section -->
+            <div class="content-section" id="orders">
+                <h2 class="section-title">Gestión de Pedidos</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="orderClient">Cliente:</label>
+                        <select id="orderClient">
+                            <option value="">Seleccione un cliente</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="orderDate">Fecha:</label>
+                        <input type="date" id="orderDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="orderStatus">Estado:</label>
+                        <select id="orderStatus">
+                            <option value="pendiente">Pendiente</option>
+                            <option value="en_proceso">En Proceso</option>
+                            <option value="completado">Completado</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="orderDescription">Descripción:</label>
+                        <textarea id="orderDescription" rows="3"></textarea>
+                    </div>
+                </div>
+                <button class="btn" onclick="addOrder()">Agregar Pedido</button>
+                
+                <table id="ordersTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Cliente</th>
+                            <th>Fecha</th>
+                            <th>Estado</th>
+                            <th>Descripción</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Orders will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Clients Section -->
+            <div class="content-section" id="clients">
+                <h2 class="section-title">Gestión de Clientes</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="clientName">Nombre:</label>
+                        <input type="text" id="clientName">
+                    </div>
+                    <div class="form-group">
+                        <label for="clientEmail">Correo:</label>
+                        <input type="email" id="clientEmail">
+                    </div>
+                    <div class="form-group">
+                        <label for="clientPhone">Teléfono:</label>
+                        <input type="tel" id="clientPhone">
+                    </div>
+                    <div class="form-group">
+                        <label for="clientAddress">Dirección:</label>
+                        <input type="text" id="clientAddress">
+                    </div>
+                </div>
+                <button class="btn" onclick="addClient()">Agregar Cliente</button>
+                
+                <table id="clientsTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Correo</th>
+                            <th>Teléfono</th>
+                            <th>Dirección</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Clients will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Materials Section -->
+            <div class="content-section" id="materials">
+                <h2 class="section-title">Gestión de Materiales</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="materialName">Nombre del Material:</label>
+                        <input type="text" id="materialName">
+                    </div>
+                    <div class="form-group">
+                        <label for="materialType">Tipo:</label>
+                        <select id="materialType">
+                            <option value="madera">Madera</option>
+                            <option value="metal">Metal</option>
+                            <option value="vidrio">Vidrio</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="materialQuantity">Cantidad:</label>
+                        <input type="number" id="materialQuantity" min="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="materialUnit">Unidad:</label>
+                        <select id="materialUnit">
+                            <option value="unidades">Unidades</option>
+                            <option value="metros">Metros</option>
+                            <option value="kilogramos">Kilogramos</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn" onclick="addMaterial()">Agregar Material</button>
+                
+                <table id="materialsTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Tipo</th>
+                            <th>Cantidad</th>
+                            <th>Unidad</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Materials will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Employees Section -->
+            <div class="content-section" id="employees">
+                <h2 class="section-title">Gestión de Empleados</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="employeeName">Nombre:</label>
+                        <input type="text" id="employeeName">
+                    </div>
+                    <div class="form-group">
+                        <label for="employeeRole">Rol:</label>
+                        <select id="employeeRole">
+                            <option value="carpintero">Carpintero</option>
+                            <option value="ayudante">Ayudante</option>
+                            <option value="administrativo">Administrativo</option>
+                            <option value="gerente">Gerente</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="employeeSalary">Salario:</label>
+                        <input type="number" id="employeeSalary" min="0" step="0.01">
+                    </div>
+                    <div class="form-group">
+                        <label for="employeeStartDate">Fecha de Inicio:</label>
+                        <input type="date" id="employeeStartDate">
+                    </div>
+                </div>
+                <button class="btn" onclick="addEmployee()">Agregar Empleado</button>
+                
+                <table id="employeesTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Rol</th>
+                            <th>Salario</th>
+                            <th>Fecha Inicio</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Employees will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Deliveries Section -->
+            <div class="content-section" id="deliveries">
+                <h2 class="section-title">Gestión de Entregas</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="deliveryOrder">Pedido:</label>
+                        <select id="deliveryOrder">
+                            <option value="">Seleccione un pedido</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="deliveryDate">Fecha de Entrega:</label>
+                        <input type="date" id="deliveryDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="deliveryAddress">Dirección de Entrega:</label>
+                        <input type="text" id="deliveryAddress">
+                    </div>
+                    <div class="form-group">
+                        <label for="deliveryStatus">Estado:</label>
+                        <select id="deliveryStatus">
+                            <option value="programada">Programada</option>
+                            <option value="en_transito">En Tránsito</option>
+                            <option value="entregada">Entregada</option>
+                            <option value="cancelada">Cancelada</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn" onclick="addDelivery()">Programar Entrega</button>
+                
+                <table id="deliveriesTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Pedido</th>
+                            <th>Fecha Entrega</th>
+                            <th>Dirección</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Deliveries will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Reports Section -->
+            <div class="content-section" id="reports">
+                <h2 class="section-title">Reportes</h2>
+                <div class="reports-grid">
+                    <div class="report-card">
+                        <h3>Reporte de Ventas por Mes</h3>
+                        <div id="salesByMonth"></div>
+                        <button class="btn" onclick="generateSalesReport()">Generar Reporte</button>
+                    </div>
+                    <div class="report-card">
+                        <h3>Reporte de Materiales Más Usados</h3>
+                        <div id="topMaterials"></div>
+                        <button class="btn" onclick="generateMaterialsReport()">Generar Reporte</button>
+                    </div>
+                    <div class="report-card">
+                        <h3>Reporte de Productividad de Empleados</h3>
+                        <div id="employeeProductivity"></div>
+                        <button class="btn" onclick="generateEmployeeReport()">Generar Reporte</button>
+                    </div>
+                    <div class="report-card">
+                        <h3>Reporte de Clientes Frecuentes</h3>
+                        <div id="frequentClients"></div>
+                        <button class="btn" onclick="generateClientsReport()">Generar Reporte</button>
+                    </div>
+                    <div class="report-card">
+                        <h3>Reporte de Entregas Pendientes</h3>
+                        <div id="pendingDeliveries"></div>
+                        <button class="btn" onclick="generateDeliveriesReport()">Generar Reporte</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Backup/Restore Section -->
+            <div class="content-section" id="backup">
+                <h2 class="section-title">Backup y Restauración de Base de Datos</h2>
+                <div class="backup-section">
+                    <p>Haga clic en los botones siguientes para realizar operaciones de backup y restore.</p>
+                    <div class="backup-buttons">
+                        <button class="btn" onclick="performBackup()">Realizar Backup</button>
+                        <button class="btn" onclick="performRestore()">Restaurar desde Backup</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
+
+    <script>
+       
+        // Data storage simulation
+        let data = {
+            orders: [],
+            clients: [],
+            materials: [],
+            employees: [],
+            deliveries: []
+        };
+
+        let currentUserId = null;
+
+        // User authentication
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (username === 'admin' && password === 'admin123') {
+                currentUserId = { id: 1, role: 'admin', name: 'Administrador' };
+                showNotification('Bienvenido Administrador!', 'success');
+                switchToApp();
+            } else if (username === 'user' && password === 'user123') {
+                currentUserId = { id: 2, role: 'user', name: 'Empleado' };
+                showNotification('Bienvenido Empleado!', 'success');
+                switchToApp();
+            } else {
+                showNotification('Credenciales incorrectas', 'error');
+            }
+        }
+
+        function switchToApp() {
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('appContainer').style.display = 'block';
+            loadInitialData();
+        }
+
+        
+
+        // Navigation
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const sectionId = this.getAttribute('data-section');
+                showSection(sectionId);
+                
+                // Update active navigation
+                document.querySelectorAll('nav a').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        function showSection(sectionId) {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        // Load initial sample data
+        function loadInitialData() {
+            // Sample data
+            data.clients = [
+                { id: 1, name: 'Juan Pérez', email: 'juan@example.com', phone: '555-1234', address: 'Calle Falsa 123' },
+                { id: 2, name: 'María García', email: 'maria@example.com', phone: '555-5678', address: 'Avenida Siempreviva 456' }
+            ];
+
+            data.orders = [
+                { id: 1, clientId: 1, date: '2023-05-15', status: 'pendiente', description: 'Mesa de comedor' },
+                { id: 2, clientId: 2, date: '2023-05-18', status: 'en_proceso', description: 'Armario empotrable' }
+            ];
+
+            data.materials = [
+                { id: 1, name: 'Roble', type: 'madera', quantity: 150, unit: 'unidades' },
+                { id: 2, name: 'Tornillos', type: 'metal', quantity: 500, unit: 'unidades' }
+            ];
+
+            data.employees = [
+                { id: 1, name: 'Carlos López', role: 'carpintero', salary: 1800, startDate: '2020-03-15' },
+                { id: 2, name: 'Ana Martínez', role: 'ayudante', salary: 1200, startDate: '2021-06-22' }
+            ];
+
+            data.deliveries = [
+                { id: 1, orderId: 1, deliveryDate: '2023-05-25', address: 'Calle Falsa 123', status: 'programada' }
+            ];
+
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            // Update dashboard counters
+            document.getElementById('pendingOrders').textContent = data.orders.filter(o => o.status === 'pendiente').length;
+            document.getElementById('totalClients').textContent = data.clients.length;
+            document.getElementById('stockMaterials').textContent = data.materials.reduce((sum, m) => sum + m.quantity, 0);
+            document.getElementById('activeEmployees').textContent = data.employees.length;
+            document.getElementById('scheduledDeliveries').textContent = data.deliveries.filter(d => d.status === 'programada').length;
+
+            // Update client dropdowns
+            const orderClientSelect = document.getElementById('orderClient');
+            orderClientSelect.innerHTML = '<option value="">Seleccione un cliente</option>';
+            data.clients.forEach(client => {
+                orderClientSelect.innerHTML += `<option value="${client.id}">${client.name}</option>`;
+            });
+
+            const deliveryOrderSelect = document.getElementById('deliveryOrder');
+            deliveryOrderSelect.innerHTML = '<option value="">Seleccione un pedido</option>';
+            data.orders.forEach(order => {
+                deliveryOrderSelect.innerHTML += `<option value="${order.id}">${order.description}</option>`;
+            });
+
+            // Update tables
+            updateOrdersTable();
+            updateClientsTable();
+            updateMaterialsTable();
+            updateEmployeesTable();
+            updateDeliveriesTable();
+        }
+
+        // Order management
+        function addOrder() {
+            const clientId = parseInt(document.getElementById('orderClient').value);
+            const date = document.getElementById('orderDate').value;
+            const status = document.getElementById('orderStatus').value;
+            const description = document.getElementById('orderDescription').value;
+
+            if (!clientId || !date || !status || !description) {
+                showNotification('Por favor complete todos los campos', 'error');
+                return;
+            }
+
+            const newOrder = {
+                id: data.orders.length + 1,
+                clientId: clientId,
+                date: date,
+                status: status,
+                description: description
+            };
+
+            data.orders.push(newOrder);
+            updateDisplay();
+            clearForm('orders');
+            showNotification('Pedido agregado exitosamente', 'success');
+        }
+
+        function updateOrdersTable() {
+            const tbody = document.querySelector('#ordersTable tbody');
+            tbody.innerHTML = '';
+
+            data.orders.forEach(order => {
+                const client = data.clients.find(c => c.id === order.clientId);
+                const row = `
+                    <tr>
+                        <td>${order.id}</td>
+                        <td>${client ? client.name : 'Desconocido'}</td>
+                        <td>${order.date}</td>
+                        <td>${order.status}</td>
+                        <td>${order.description}</td>
+                        <td>
+                            <button class="table-btn" onclick="editOrder(${order.id})">Editar</button>
+                            <button class="table-btn delete" onclick="deleteOrder(${order.id})">Eliminar</button>
+                        </td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+
+        function editOrder(id) {
+            const order = data.orders.find(o => o.id === id);
+            if (order) {
+                document.getElementById('orderClient').value = order.clientId;
+                document.getElementById('orderDate').value = order.date;
+                document.getElementById('orderStatus').value = order.status;
+                document.getElementById('orderDescription').value = order.description;
+                showNotification(`Editando pedido ${id}`, 'success');
+            }
+        }
+
+        function deleteOrder(id) {
+            if (confirm('¿Está seguro de eliminar este pedido?')) {
+                data.orders = data.orders.filter(o => o.id !== id);
+                updateDisplay();
+                showNotification('Pedido eliminado', 'success');
+            }
+        }
+
+        // Client management
+        function addClient() {
+            const name = document.getElementById('clientName').value;
+            const email = document.getElementById('clientEmail').value;
+            const phone = document.getElementById('clientPhone').value;
+            const address = document.getElementById('clientAddress').value;
+
+            if (!name || !email || !phone || !address) {
+                showNotification('Por favor complete todos los campos', 'error');
+                return;
+            }
+
+            const newClient = {
+                id: data.clients.length + 1,
+                name: name,
+                email: email,
+                phone: phone,
+                address: address
+            };
+
+            data.clients.push(newClient);
+            updateDisplay();
+            clearForm('clients');
+            showNotification('Cliente agregado exitosamente', 'success');
+        }
+
+        function updateClientsTable() {
+            const tbody = document.querySelector('#clientsTable tbody');
+            tbody.innerHTML = '';
+
+            data.clients.forEach(client => {
+                const row = `
+                    <tr>
+                        <td>${client.id}</td>
+                        <td>${client.name}</td>
+                        <td>${client.email}</td>
+                        <td>${client.phone}</td>
+                        <td>${client.address}</td>
+                        <td>
+                            <button class="table-btn" onclick="editClient(${client.id})">Editar</button>
+                            <button class="table-btn delete" onclick="deleteClient(${client.id})">Eliminar</button>
+                        </td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+
+        function editClient(id) {
+            const client = data.clients.find(c => c.id === id);
+            if (client) {
+                document.getElementById('clientName').value = client.name;
+                document.getElementById('clientEmail').value = client.email;
+                document.getElementById('clientPhone').value = client.phone;
+                document.getElementById('clientAddress').value = client.address;
+                showNotification(`Editando cliente ${id}`, 'success');
+            }
+        }
+
+        function deleteClient(id) {
+            if (confirm('¿Está seguro de eliminar este cliente?')) {
+                data.clients = data.clients.filter(c => c.id !== id);
+                updateDisplay();
+                showNotification('Cliente eliminado', 'success');
+            }
+        }
+
+        // Material management
+        function addMaterial() {
+            const name = document.getElementById('materialName').value;
+            const type = document.getElementById('materialType').value;
+            const quantity = parseInt(document.getElementById('materialQuantity').value);
+            const unit = document.getElementById('materialUnit').value;
+
+            if (!name || !quantity || !unit) {
+                showNotification('Por favor complete todos los campos', 'error');
+                return;
+            }
+
+            const newMaterial = {
+                id: data.materials.length + 1,
+                name: name,
+                type: type,
+                quantity: quantity,
+                unit: unit
+            };
+
+            data.materials.push(newMaterial);
+            updateDisplay();
+            clearForm('materials');
+            showNotification('Material agregado exitosamente', 'success');
+        }
+
+        function updateMaterialsTable() {
+            const tbody = document.querySelector('#materialsTable tbody');
+            tbody.innerHTML = '';
+
+            data.materials.forEach(material => {
+                const row = `
+                    <tr>
+                        <td>${material.id}</td>
+                        <td>${material.name}</td>
+                        <td>${material.type}</td>
+                        <td>${material.quantity}</td>
+                        <td>${material.unit}</td>
+                        <td>
+                            <button class="table-btn" onclick="editMaterial(${material.id})">Editar</button>
+                            <button class="table-btn delete" onclick="deleteMaterial(${material.id})">Eliminar</button>
+                        </td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+
+        function editMaterial(id) {
+            const material = data.materials.find(m => m.id === id);
+            if (material) {
+                document.getElementById('materialName').value = material.name;
+                document.getElementById('materialType').value = material.type;
+                document.getElementById('materialQuantity').value = material.quantity;
+                document.getElementById('materialUnit').value = material.unit;
+                showNotification(`Editando material ${id}`, 'success');
+            }
+        }
+
+        function deleteMaterial(id) {
+            if (confirm('¿Está seguro de eliminar este material?')) {
+                data.materials = data.materials.filter(m => m.id !== id);
+                updateDisplay();
+                showNotification('Material eliminado', 'success');
+            }
+        }
+
+        // Employee management
+        function addEmployee() {
+            const name = document.getElementById('employeeName').value;
+            const role = document.getElementById('employeeRole').value;
+            const salary = parseFloat(document.getElementById('employeeSalary').value);
+            const startDate = document.getElementById('employeeStartDate').value;
+
+            if (!name || !salary || !startDate) {
+                showNotification('Por favor complete todos los campos', 'error');
+                return;
+            }
+
+            const newEmployee = {
+                id: data.employees.length + 1,
+                name: name,
+                role: role,
+                salary: salary,
+                startDate: startDate
+            };
+
+            data.employees.push(newEmployee);
+            updateDisplay();
+            clearForm('employees');
+            showNotification('Empleado agregado exitosamente', 'success');
+        }
+
+        function updateEmployeesTable() {
+            const tbody = document.querySelector('#employeesTable tbody');
+            tbody.innerHTML = '';
+
+            data.employees.forEach(employee => {
+                const row = `
+                    <tr>
+                        <td>${employee.id}</td>
+                        <td>${employee.name}</td>
+                        <td>${employee.role}</td>
+                        <td>$${employee.salary.toFixed(2)}</td>
+                        <td>${employee.startDate}</td>
+                        <td>
+                            <button class="table-btn" onclick="editEmployee(${employee.id})">Editar</button>
+                            <button class="table-btn delete" onclick="deleteEmployee(${employee.id})">Eliminar</button>
+                        </td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+
+        function editEmployee(id) {
+            const employee = data.employees.find(e => e.id === id);
+            if (employee) {
+                document.getElementById('employeeName').value = employee.name;
+                document.getElementById('employeeRole').value = employee.role;
+                document.getElementById('employeeSalary').value = employee.salary;
+                document.getElementById('employeeStartDate').value = employee.startDate;
+                showNotification(`Editando empleado ${id}`, 'success');
+            }
+        }
+
+        function deleteEmployee(id) {
+            if (confirm('¿Está seguro de eliminar este empleado?')) {
+                data.employees = data.employees.filter(e => e.id !== id);
+                updateDisplay();
+                showNotification('Empleado eliminado', 'success');
+            }
+        }
+
+        // Delivery management
+        function addDelivery() {
+            const orderId = parseInt(document.getElementById('deliveryOrder').value);
+            const deliveryDate = document.getElementById('deliveryDate').value;
+            const address = document.getElementById('deliveryAddress').value;
+            const status = document.getElementById('deliveryStatus').value;
+
+            if (!orderId || !deliveryDate || !address) {
+                showNotification('Por favor complete todos los campos', 'error');
+                return;
+            }
+
+            const newDelivery = {
+                id: data.deliveries.length + 1,
+                orderId: orderId,
+                deliveryDate: deliveryDate,
+                address: address,
+                status: status
+            };
+
+            data.deliveries.push(newDelivery);
+            updateDisplay();
+            clearForm('deliveries');
+            showNotification('Entrega programada exitosamente', 'success');
+        }
+
+        function updateDeliveriesTable() {
+            const tbody = document.querySelector('#deliveriesTable tbody');
+            tbody.innerHTML = '';
+
+            data.deliveries.forEach(delivery => {
+                const order = data.orders.find(o => o.id === delivery.orderId);
+                const row = `
+                    <tr>
+                        <td>${delivery.id}</td>
+                        <td>${order ? order.description : 'Desconocido'}</td>
+                        <td>${delivery.deliveryDate}</td>
+                        <td>${delivery.address}</td>
+                        <td>${delivery.status}</td>
+                        <td>
+                            <button class="table-btn" onclick="editDelivery(${delivery.id})">Editar</button>
+                            <button class="table-btn delete" onclick="deleteDelivery(${delivery.id})">Cancelar</button>
+                        </td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+
+        function editDelivery(id) {
+            const delivery = data.deliveries.find(d => d.id === id);
+            if (delivery) {
+                document.getElementById('deliveryOrder').value = delivery.orderId;
+                document.getElementById('deliveryDate').value = delivery.deliveryDate;
+                document.getElementById('deliveryAddress').value = delivery.address;
+                document.getElementById('deliveryStatus').value = delivery.status;
+                showNotification(`Editando entrega ${id}`, 'success');
+            }
+        }
+
+        function deleteDelivery(id) {
+            if (confirm('¿Está seguro de cancelar esta entrega?')) {
+                data.deliveries = data.deliveries.filter(d => d.id !== id);
+                updateDisplay();
+                showNotification('Entrega cancelada', 'success');
+            }
+        }
+
+        // Report generation functions
+        function generateSalesReport() {
+            const salesByMonth = {};
+            data.orders.forEach(order => {
+                const month = order.date.substring(0, 7); // YYYY-MM format
+                salesByMonth[month] = (salesByMonth[month] || 0) + 1;
+            });
+
+            const container = document.getElementById('salesByMonth');
+            container.innerHTML = '<h4>Ventas por Mes:</h4>';
+            Object.entries(salesByMonth).sort().forEach(([month, count]) => {
+                container.innerHTML += `<p>${month}: ${count} pedidos</p>`;
+            });
+            showNotification('Reporte de ventas generado', 'success');
+        }
+
+        function generateMaterialsReport() {
+            const topMaterials = [...data.materials]
+                .sort((a, b) => b.quantity - a.quantity)
+                .slice(0, 5);
+
+            const container = document.getElementById('topMaterials');
+            container.innerHTML = '<h4>Materiales más usados:</h4>';
+            topMaterials.forEach(material => {
+                container.innerHTML += `<p>${material.name}: ${material.quantity} ${material.unit}</p>`;
+            });
+            showNotification('Reporte de materiales generado', 'success');
+        }
+
+        function generateEmployeeReport() {
+            const productivity = data.employees.map(emp => ({
+                ...emp,
+                productivity: Math.floor(Math.random() * 100) // Simulated productivity score
+            }));
+
+            const container = document.getElementById('employeeProductivity');
+            container.innerHTML = '<h4>Productividad de Empleados:</h4>';
+            productivity.sort((a, b) => b.productivity - a.productivity).forEach(emp => {
+                container.innerHTML += `<p>${emp.name} (${emp.role}): ${emp.productivity}%</p>`;
+            });
+            showNotification('Reporte de productividad generado', 'success');
+        }
+
+        function generateClientsReport() {
+            const frequentClients = data.clients.slice(0, 5); // Top 5 clients
+            
+            const container = document.getElementById('frequentClients');
+            container.innerHTML = '<h4>Clientes frecuentes:</h4>';
+            frequentClients.forEach(client => {
+                container.innerHTML += `<p>${client.name} - ${client.email}</p>`;
+            });
+            showNotification('Reporte de clientes generado', 'success');
+        }
+
+        function generateDeliveriesReport() {
+            const pendingDeliveries = data.deliveries.filter(d => d.status === 'programada');
+
+            const container = document.getElementById('pendingDeliveries');
+            container.innerHTML = '<h4>Entregas pendientes:</h4>';
+            pendingDeliveries.forEach(delivery => {
+                const order = data.orders.find(o => o.id === delivery.orderId);
+                container.innerHTML += `<p>${order ? order.description : 'Desconocido'} - ${delivery.deliveryDate}</p>`;
+            });
+            showNotification('Reporte de entregas generado', 'success');
+        }
+
+        // Backup and Restore functions
+        function performBackup() {
+            try {
+                const backupData = JSON.stringify(data);
+                localStorage.setItem('carpinteria_backup', backupData);
+                showNotification('Backup realizado exitosamente', 'success');
+            } catch (error) {
+                showNotification('Error al realizar backup', 'error');
+            }
+        }
+
+        function performRestore() {
+            try {
+                const backupData = localStorage.getItem('carpinteria_backup');
+                if (backupData) {
+                    data = JSON.parse(backupData);
+                    updateDisplay();
+                    showNotification('Datos restaurados desde backup', 'success');
+                } else {
+                    showNotification('No se encontró ningún backup', 'error');
+                }
+            } catch (error) {
+                showNotification('Error al restaurar datos', 'error');
+            }
+        }
+
+        // Utility functions
+        function clearForm(formType) {
+            const forms = {
+                'orders': ['orderClient', 'orderDate', 'orderStatus', 'orderDescription'],
+                'clients': ['clientName', 'clientEmail', 'clientPhone', 'clientAddress'],
+                'materials': ['materialName', 'materialType', 'materialQuantity', 'materialUnit'],
+                'employees': ['employeeName', 'employeeRole', 'employeeSalary', 'employeeStartDate'],
+                'deliveries': ['deliveryOrder', 'deliveryDate', 'deliveryAddress', 'deliveryStatus']
+            };
+
+            forms[formType].forEach(fieldId => {
+                document.getElementById(fieldId).value = '';
+            });
+        }
+
+        function showNotification(message, type) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+name: Deploy to Render
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project (if exists)
+        run: |
+          if [ -f package.json ] && grep -q '"build"' package.json; then
+            npm run build
+          else
+            echo "No build script found, skipping build"
+          fi
+
+      - name: Trigger Render Deployment
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+          SERVICE_NAME: mi-proyecto-web
+        run: |
+          echo "Triggering Render deployment for $SERVICE_NAME"
+          curl -X POST "https://api.render.com/v1/services/$SERVICE_NAME/deploys"                 -H "Authorization: Bearer $RENDER_API_KEY"                 -H "Content-Type: application/json"                 -d '{}' || echo "Deployment trigger complete"
