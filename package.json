@@ -2,10 +2,10 @@
   "name": "proyecto-integrado",
   "version": "1.0.0",
   "description": "Proyecto integrado con MySQL - generado automáticamente",
-  "main": "src/index.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
     "init-db": "sh init-db.sh"
   },
   "dependencies": {
