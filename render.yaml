@@ -1,17 +1,21 @@
 services:
-  - type: web_service
+  - type: web
     name: proyecto-backend
     env: node
     region: oregon
     plan: free
     buildCommand: npm install
     startCommand: npm start
+    autoDeploy: true
+    rootDir: .
     envVars:
       - key: DB_HOST
-        value: <your-db-host>
+        value: <tu-host-de-base-de-datos>
       - key: DB_USER
-        value: <your-db-user>
+        value: <tu-usuario-de-bd>
       - key: DB_PASS
-        value: <your-db-pass>
+        value: <tu-contraseña-de-bd>
       - key: DB_NAME
         value: proyecto_db
+      - key: JWT_SECRET
+        value: clave_super_segura
