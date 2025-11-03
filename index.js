@@ -7,7 +7,10 @@ app.use(express.json());
 const authRouter = require('./routes/router_auth');
 app.use('/auth', authRouter);
 
-// ...otras rutas y lógica necesarias
+// Ruta para la raíz "/"
+app.get('/', (req, res) => {
+  res.send('¡Bienvenido a mi proyecto web!');
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
