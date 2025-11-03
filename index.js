@@ -45,7 +45,7 @@ db.connect((err) => {
 });
 
 // Rutas principales
-app.use("/api", authRouter);
+app.use("/api", authrouter);
 
 // Ruta base
 app.get("/", (req, res) => {
