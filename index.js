@@ -1,26 +1,58 @@
-require('dotenv').config();
-const express = require('express');
-const pool = require('./db');
-const cors = require('cors');
+// ===== Carpintería Los Robles =====
+// Backend principal con Express y MySQL
+
+import express from "express";
+import cors from "cors";
+import mysql from "mysql2";
+import dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";
+
+// Importar rutas (corregido)
+import authRouter from "./routes/router/auth.js";
+
+// Configuración base
+dotenv.config();
 const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Permitir CORS y JSON
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// routes
-const authRoutes = require('./routes/roater/auth');
-app.use('/auth', authroutes);
+// Configurar rutas estáticas (por si sirves el frontend desde aquí)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.use(express.static(path.join(__dirname, "../frontend")));
 
-app.get('/', (req, res) => res.send('Proyecto integrado - servidor funcionando'));
+// Conexión MySQL
+const db = mysql.createConnection({
+  host: process.env.DB_HOST || "localhost",
+  user: process.env.DB_USER || "root",
+  password: process.env.DB_PASSWORD || "admin123",
+  database: process.env.DB_NAME || "carpinteria_db",
+  port: process.env.DB_PORT || 3306,
+});
 
-app.get('/users', async (req, res) => {
-  try {
-    const [rows] = await pool.query('SELECT id, username, email FROM users');
-    res.json(rows);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'db error' });
+// Verificar conexión
+db.connect((err) => {
+  if (err) {
+    console.error("❌ Error al conectar a la base de datos:", err.message);
+  } else {
+    console.log("✅ Conectado correctamente a MySQL (carpinteria_db)");
   }
 });
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log('Server listening on', port));
+// Rutas principales
+app.use("/api", authRouter);
+
+// Ruta base
+app.get("/", (req, res) => {
+  res.send("🚀 Servidor Carpintería Los Robles activo y funcionando");
+});
+
+// Iniciar servidor
+app.listen(PORT, () => {
+  console.log(`🌐 Servidor ejecutándose en http://localhost:${PORT}`);
+});
