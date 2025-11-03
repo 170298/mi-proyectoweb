@@ -1,7 +1,7 @@
 // index.js
 import express from 'express';
 import cors from 'cors';
-import authRouter from './routes/auth..js'; // ✅ Ruta corregida
+import authRouter from './routes/auth.js'; // ✅ Ruta corregida
 import dotenv from 'dotenv';
 import './db.js'; // si tu db.js configura la conexión
 
