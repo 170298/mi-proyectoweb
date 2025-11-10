@@ -1,26 +1,19 @@
-// index.js
 import express from 'express';
-import cors from 'cors';
-import authRouter from './routes/auth.js'; // ✅ Ruta corregida
-import dotenv from 'dotenv';
-import './db.js'; // si tu db.js configura la conexión
-
-dotenv.config();
+import authRouter from './routes/auth.js';
 
 const app = express();
 
-// Middle
-app.use(cors());
-app.use(express.json());
+app.use(express.json()); // Para analizar JSON en el body
 
-// Rutas
-app.use('/api/auth', authRouter); // ejemplo de uso
+// Usar las rutas de autenticacion bajo /auth
+app.use('/auth', authRouter);
 
-// Puerto de Render o local
-const PORT = process.env.PORT || 3000;
-
-// Servidor activo
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en el puerto ${PORT}`);
+// Ruta principal de prueba
+app.get('/', (req, res) => {
+  res.send('Bienvenido a Carpintería Los Robles API');
 });
 
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Servidor escuchando en puerto ${PORT}`);
+});
